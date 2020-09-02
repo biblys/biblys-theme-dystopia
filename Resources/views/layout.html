@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>{PAGE_TITLE}</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" type="image/png" href="/dystopia/images/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {CSS_CALLS}
+  {OPENGRAPH}
+  {MATOMO}
+  <link rel="stylesheet" href="/theme/styles.css?{ASSETS_VERSION}" />
+</head>
+
+<body>
+
+    <div id="wrapper" class="container">
+
+        <a href="/">
+            <header id="header" class="hidden-print">
+            </header>
+            <header id="header-mobile" class="hidden-print">
+                <img src="/dystopia/images/header-mobile.jpg" alt="Dystopia" />
+            </header>
+        </a>
+
+        <nav id="menu" class="navbar">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-menu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="collapse-menu">
+                <ul class="nav navbar-nav">
+                    <li role="presentation"><a href="/">L'Actu</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalogue <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/rayon/papier">Papier</a></li>
+                        <li><a href="/rayon/numerique">Numérique</a></li>
+                        <li><a href="/rayon/collectors">Collectors</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/rayon/en-souscription">En souscription</a></li>
+                        <li><a href="/rayon/a-paraitre">À paraître</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diffusion <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/rayon/le-visage-vert-revue">Le Visage Vert (revue)</a></li>
+                        <li><a href="/rayon/le-visage-vert-romans-recueils-novellas-essais">Le Visage Vert (romans, recueils, novellas, essais)</a></li>
+                        <li><a href="/rayon/les-regles-de-la-nuit">Les Règles de la nuit</a></li>
+                        <li><a href="/rayon/scylla">Editions Scylla</a></li>
+                      </ul>
+                    </li>
+                    <li role="presentation"><a href="/pages/points-de-vente">Points de vente</a></li>
+                    <li role="presentation"><a href="/pages/dons">Dons</a></li>
+                    <li role="presentation">
+                      <a href="/contact/">Contact</a>
+                    </li>
+                    <li role="presentation">
+                      <a href="https://www.facebook.com/dystopia.workshop/" target="_blank" title="Dystopia sur Facebook"><span class="fa fa-facebook-square va-bottom"></span></a>
+                    </li>
+                    <li role="presentation">
+                      <a href="https://twitter.com/yirminadingrad" title="Dystopia sur Twitter"><span class="fa fa-twitter-square va-bottom"></span></a>
+                    </li>
+                    <li role="presentation">
+                      <a href="/mailing/subscribe" title="La newsletter de Dystopia"><span class="fa fa-envelope va-bottom"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="search-box hidden-print">
+          <form class="search-form" action="/articles/search">
+            <input type="text" class="search-field" placeholder="Rechercher dans le catalogue Dystopia &amp; diffusés" name="q" value="{SEARCH_TERMS}">
+            <button class="btn btn-default btn-sm search-button" type="submit"><i class="fa fa-search"></i> Recherche</button>
+            <span id="myCart">{cart_oneline}</span>
+          </form>
+        </div>
+
+        <div id="content" class="container">
+            {PAGE_CONTENT}
+        </div>
+
+    </div>
+
+    <footer class="hidden-print">
+        <p class="text-center">
+          <a href="/pages/mentions-legales">Mentions légales</a> —
+          <a href="/pages/conditions-generales-de-ventes">Conditions Générales de Vente</a>
+        </p>
+        <a href="http://www.biblys.fr/" target="_blank">
+            <img src="/assets/images/propulse-par-biblys.png" class="biblys" alt="Propulsé par Biblys">
+        </a>
+    </footer>
+    {JS_CALLS}
+    <script src="/dystopia/js/main.js"></script>
+    {ANALYTICS_TRACKER} {AXYS_MENU}
+</body>
+
+</html>

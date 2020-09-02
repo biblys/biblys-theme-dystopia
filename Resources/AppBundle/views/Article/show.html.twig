@@ -1,0 +1,183 @@
+<article class="article">
+
+    <div class="row">
+        <div class="col-sm-4">
+            {% if article.hasCover() %}
+                <p>{{ article.getCoverTag({ size: "w300", class: "cover", rel: "lightbox" })|raw }}</p>
+            {% endif %}
+
+            <p class="text-center">
+                {% if article.type_id == 1 %}
+                    Papier
+                {% elseif article.type_id == 2 %}
+                    Numérique
+                {% else %}
+                    Goodies
+                {% endif %}
+                {% if article.has('price') %}
+                    - {{ article.price|price('EUR')|raw }}
+                {% else %}
+                    - Gratuit
+                {% endif %}
+            </p>
+
+            {% if not article.isPublished() and article.has('pubdate') %}
+                <p class="text-center">À paraître le {{ article.pubdate|date }} </p>
+            {% endif %}
+
+            <p>
+                {% if article.isSoldOut() %}
+                    <p class="alert alert-warning text-center">Épuisé</p>
+                {% elseif article.isToBeReprinted() %}
+                    <p class="alert alert-warning text-center">Réimpression en cours</p>
+                {% elseif not article.has('price') and article.get('type_id') == 2 %}
+                  <a href="/pages/log_myebooks?add={{ article.id }}" class="btn btn-primary btn-block" title="Télécharger gratuitement"><i class="fa fa-download"></i> Télécharger</a>
+                {% elseif article.isPublished() %}
+                    <a href="/pages/cart?add=article&amp;id={{ article.id }}" class="btn btn-primary btn-block add_to_cart event" data-type="article" data-id="{{ article.id }}"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
+                {% elseif article.isPreorderable() %}
+                    <a href="/pages/cart?add=article&amp;id={{ article.id }}" class="btn btn-primary btn-block add_to_cart event" data-type="article" data-id="{{ article.id }}"><i class="fa fa-shopping-cart"></i> Précommander</a>
+                {% endif %}
+
+                <a data-wish="{{ article.id }}" class="btn btn-default btn-block event">
+                    {% if article.isInWishList() %}
+                        <i class="fa fa-heart red"></i> Dans mes envies
+                    {% else %}
+                        <i class="fa fa-heart-o"></i> Ajouter à mes envies
+                    {% endif %}
+                </a>
+            </p>
+
+            {% if article.hasDownloadableFiles('free') %}
+                <p>
+                    <a class="btn btn-info btn-block" data-toggle="collapse" href="#files"><i class="fa fa-download"></i> Télécharger un extrait</a>
+                <p>
+                <p id="files" class="text-center collapse">
+                    {% for file in article.getDownloadableFiles('free') %}
+                        <a href="{{ file.getUrl() }}" class="btn btn-default btn-sm"><i class="fa fa-file"></i> {{ file.getType('name') }}</a>
+
+                        {% if file.type == "audio/mpeg" %}
+                          <script>
+                            function audioClick(button) {
+                              var fa = button.querySelector('.fa');
+                              if (window.audioPlaying) {
+                                window.audioPlaying = false;
+                                excerpt_{{ file.id }}.pause();
+                                fa.classList.remove('fa-pause');
+                                fa.classList.add('fa-play');
+                              } else {
+                                window.audioPlaying = true;
+                                excerpt_{{ file.id }}.play();
+                                fa.classList.remove('fa-play');
+                                fa.classList.add('fa-pause');
+                              }
+                            }
+                          </script>
+                          <button class="btn btn-default btn-sm" onclick="audioClick(this)"><i class="fa fa-play"></i> Écouter</button>
+                          <audio id="excerpt_{{ file.id }}">
+                            <source src="{{ file.getUrl() }}" type="audio/mpeg">
+                          </audio>
+                        {% endif %}
+
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            <p>
+                {% if article.has('pages') %}
+                    {{ article.pages }} pages<br>
+                {% endif %}
+                {% if article.type_id == 2 and article.hasDownloadableFiles('paid') %}
+                    Formats : {% for file in article.getDownloadableFiles('paid') %}
+                        {{ file.getType('name') }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    <br>
+                {% endif %}
+                {% if article.type_id == 2 %}
+                    Sans DRM<br>
+                {% endif %}
+                {% if article.has('pubdate') %}
+                    Parution : {{ article.pubdate|date('f Y') }}<br>
+                {% endif %}
+                Éditeur : {{ article.publisher.name }}<br>
+                {% if article.has('ean') %}
+                    ISBN : {{ article.isbn }}<br>
+                    EAN : {{ article.ean }}<br>
+                {% endif %}
+            </p>
+
+            {% set other = article.otherVersion %}
+            {% if other and other.type_id == 2 %}
+                <p class="center">Existe aussi en <a href="{{ path('article_show', { slug: other.url }) }}">numérique</a>.</p>
+            {% elseif other and other.type_id == 1 %}
+                <p class="center">Existe aussi en <a href="{{ path('article_show', { slug: other.url }) }}">papier</a>.</p>
+            {% endif %}
+
+            {{ article.getShareButtons|raw }}
+
+        </div>
+        <div class="col-sm-8">
+            <h1>{{ article.title }}</h1>
+
+            {% if article.has('subtitle') %}
+                <p class="subtitle">{{ article.subtitle }}</p>
+            {% endif %}
+
+            {% if article.has('cycle') %}
+                <p class="cycle">
+                    <a href="{{ path('cycle_show', { slug: article.cycle.url }) }}">{{ article.cycle.name }}</a>
+                    {% if article.has('tome') %}
+                        - {{ article.tome }}
+                    {% endif %}
+                </p>
+            {% endif %}
+
+            <p class="authors">
+                de
+                {% for author in article.getAuthors() %}
+                    <a href="{{ path('people_show', { slug: author.url }) }}">{{ (author.has('first_name') ? author.first_name : '') }} {{ author.last_name }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+
+            {% if article.hasOtherContributors %}
+                <p class="contributors">
+                    et
+                    {% for contributor in article.getOtherContributors() %}
+                        <a href="{{ path('people_show', { slug: contributor.url }) }}">{{ contributor.has('first_name') ? contributor.first_name }} {{ contributor.last_name }}</a> ({{ contributor.job_name }})
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if article.has('summary') %}
+                {{ article.summary|raw }}
+            {% endif %}
+
+            {% if article.has('contents') %}
+                <h2>Sommaire</h2>
+                {{ article.contents|raw }}
+            {% endif %}
+            
+            {% if article.has('bonus') %}
+                <div class="article-bonus">
+                    {{ article.bonus|raw }}
+                </div>
+            {% endif %}
+
+            <div class="article-posts">
+              {% set posts = article.getPosts() %}
+              {% for post in posts %}
+                <article class="article-post">
+                  {% if post and post.has('category') and (post.category.id == 66 or post.category.id == 33) %}
+                    {{ post.content|raw }}
+                  {% endif %}
+                </article>
+              {% endfor %}
+            </div>
+      </div>
+
+{% if app.user.isAdmin() %}
+    <div class="admin">
+        <p>Article n° {{ article.id }}</p>
+        <p><a href="/pages/adm_article?id={{ article.id }}">modifier</a></p>
+    </div>
+{% endif %}
