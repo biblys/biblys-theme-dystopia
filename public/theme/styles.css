@@ -146,7 +146,7 @@ body > footer a {
 .post .illustration {
     display: block;
     margin: 10px auto;
-    max-width: 50%;
+    max-width: 100%;
 }
 
 /* Page */
