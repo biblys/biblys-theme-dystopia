@@ -234,6 +234,24 @@ body > footer a {
   margin-bottom: .25em;
 }
 
+/* Contributor */
+
+.contributor__photo {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contributor__informations {
+    display: flex;
+  }
+
+  .contributor__photo {
+    margin-right: 16px;
+    max-width: 33%;
+    object-fit: contain;
+  }
+}
+
 /* Biblys */
 
 .biblys {
