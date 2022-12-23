@@ -134,7 +134,7 @@
             <p class="authors">
                 de
                 {% for author in article.getAuthors() %}
-                    <a href="{{ path('people_show', { slug: author.url }) }}">{{ (author.has('first_name') ? author.first_name : '') }} {{ author.last_name }}</a>{% if not loop.last %}, {% endif %}
+                    <a href="{{ path('people_show', { slug: author.url }) }}">{{ author.name }}</a>{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </p>
 
@@ -142,7 +142,7 @@
                 <p class="contributors">
                     et
                     {% for contributor in article.getOtherContributors() %}
-                        <a href="{{ path('people_show', { slug: contributor.url }) }}">{{ contributor.has('first_name') ? contributor.first_name }} {{ contributor.last_name }}</a> ({{ contributor.job_name }})
+                        <a href="{{ path('people_show', { slug: contributor.url }) }}">{{ contributor.name }}</a> ({{ contributor.job_name }})
                         {% if not loop.last %}, {% endif %}
                     {% endfor %}
                 </p>
