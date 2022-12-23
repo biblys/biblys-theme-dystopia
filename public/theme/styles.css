@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 
 body {
-    background-image: url('/dystopia/images/header.jpg'), url('/dystopia/images/background.jpg');
+    background-image: url('/theme/header.jpg'), url('/theme/background.jpg');
     background-position: top center, top left;
     background-repeat: no-repeat, repeat;
     font-family: 'Roboto Slab', Georgia, serif;
@@ -32,7 +32,7 @@ i.fa {
 }
 
 #menu .navbar-nav {
-    background-image: url('/dystopia/images/noise.png');
+    background-image: url('/theme/noise.png');
 }
 
 #menu .navbar-collapse {

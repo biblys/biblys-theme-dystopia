@@ -4,14 +4,37 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{PAGE_TITLE}</title>
+  <title>
+    {% set titleBlock = block("title") %}
+    {% if titleBlock is not empty %}
+      {% block title %}{% endblock %} |
+    {% endif %}
+    {{ app.site.title }}
+  </title>
   <meta name="viewport" content="width=device-width">
-  <link rel="shortcut icon" type="image/png" href="/dystopia/images/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="/theme/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {CSS_CALLS}
-  {OPENGRAPH}
-  {MATOMO}
-  <link rel="stylesheet" href="/theme/styles.css?{ASSETS_VERSION}" />
+
+  {# biblys assets #}
+  {% include "layout:_assets_css.html.twig" %}
+
+  <link rel="stylesheet" href="/theme/styles.css?{{ app.site.getOpt('assets_version') }}" />
+
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://analytics.biblys.cloud/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
 </head>
 
 <body>
@@ -22,7 +45,7 @@
             <header id="header" class="hidden-print">
             </header>
             <header id="header-mobile" class="hidden-print">
-                <img src="/dystopia/images/header-mobile.jpg" alt="Dystopia" />
+                <img src="/theme/header-mobile.jpg" alt="Dystopia" />
             </header>
         </a>
 
@@ -77,14 +100,14 @@
 
         <div class="search-box hidden-print">
           <form class="search-form" action="/articles/search">
-            <input type="text" class="search-field" placeholder="Rechercher dans le catalogue Dystopia &amp; diffusés" name="q" value="{SEARCH_TERMS}">
+            <input type="text" class="search-field" placeholder="Rechercher dans le catalogue Dystopia &amp; diffusés" name="q">
             <button class="btn btn-default btn-sm search-button" type="submit"><i class="fa fa-search"></i> Recherche</button>
-            <span id="myCart">{cart_oneline}</span>
+            <span id="myCart">{{ cart_status()|raw }}</span>
           </form>
         </div>
 
         <div id="content" class="container">
-            {PAGE_CONTENT}
+          {% block main %}{% endblock %}
         </div>
 
     </div>
@@ -98,9 +121,10 @@
             <img src="/assets/images/propulse-par-biblys.png" class="biblys" alt="Propulsé par Biblys">
         </a>
     </footer>
-    {JS_CALLS}
-    <script src="/dystopia/js/main.js"></script>
-    {ANALYTICS_TRACKER} {AXYS_MENU}
+
+    {{ app.axysMenu|raw }}
+    {% include "layout:_assets_js.html.twig" %}
+    <script src="/theme/main.js"></script>
 </body>
 
 </html>
