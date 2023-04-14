@@ -241,10 +241,6 @@ body > footer a {
 }
 
 @media (min-width: 768px) {
-  .contributor__informations {
-    display: flex;
-  }
-
   .contributor__photo {
     margin-right: 16px;
     max-width: 33%;
