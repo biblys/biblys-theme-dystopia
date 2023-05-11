@@ -3,7 +3,10 @@
 global $request, $site;
 
 use Biblys\Service\Config;
+use Biblys\Service\CurrentUser;
 use Biblys\Service\Mailer;
+use Biblys\Service\MailingList\Contact;
+use Biblys\Service\MailingList\MailingListService;
 use Symfony\Component\HttpFoundation\Response;
 
 $config = Config::load();
@@ -16,44 +19,23 @@ $offset = $request->query->get('offset', 0);
 $sent = 0;
 $sendAll = false;
 
-$mm = new MailingManager();
+$mailingListService = new MailingListService($config);
 
-$bulkEmailBatch = $site->getOpt('bulk_email_batch');
-if (!$bulkEmailBatch) {
-    $bulkEmailBatch = 10;
-}
-
+$bulkEmailBatch = $site->getOpt('bulk_email_batch') ?: 10;
 $defaultCampaignName = 'newsletter-'.$site->get("name").'-'.date('Y-m-d');
 $campaignName = $request->request->get('campaignName', $defaultCampaignName);
 
 $request->attributes->set("page_title", "Envoyer la newsletter");
 
-$content = '<h1><span class="fa fa-send"></span> Envoyer la newsletter</h1>';
-    
-$content .= '<p class="alert alert-warning">
-        L\'outil intégré à Biblys ne permet 
-        pas de prouver le consentement des utilisateurs inscrits à la
-        newsletter. Pour être en confirmité avec le Règlement Général sur la
-        Protection des Données, vous devriez un outil spécialisé 
-        (<a href="https://fr.mailjet.com/blog/news/rgpd-comment-requalifier-vos-listes-et-prouver-le-consentement-de-vos-contacts/">en
-        savoir plus</a>).
-    </p>';
-
-// Destinataires
-$req = null;
-if (empty($_POST["envoi"])) {
-    $req = " AND `mailing_email` = '".$this->user->get("email")."' ";
-}
-
-$mailingQuery = [
-    'mailing_block' => 0,
-    'mailing_checked' => 1,
-];
-
-$emails = $mm->getAll($mailingQuery);
-$emailsCount = count($emails);
+$mailingList = $mailingListService->getMailingList();
+$emailsCount = $mailingList->getContactCount();
 $errorsCount = $request->request->get('errors_count', 0);
 $sentSuccess = $request->request->get('sent_success', 0);
+
+$content = "";
+
+$currentUserService = CurrentUser::buildFromRequest($request);
+$currentUser = $currentUserService->getUser();
 
 // Envoi
 if (!empty($_POST)) {
@@ -85,22 +67,16 @@ if (!empty($_POST)) {
         $message
     );
 
-    // By default, send only to current user
-    $users = [["mailing_email" => $this->user->get('email')]];
-    
-    // If checked, 
+    $recipients = [new Contact($currentUser->getEmail(), "")];
     if ($sendAll) {
-        $users = $mm->getAll($mailingQuery, [
-            "offset" => $offset,
-            "limit" => $bulkEmailBatch,
-        ]);
+        $recipients = $mailingList->getContacts($offset, $bulkEmailBatch);
     }
 
     $mails = array();
     $protocol = $request->isSecure() ? 'https' : 'http';
-    foreach ($users as $u) {
+    foreach ($recipients as $recipient) {
         $m = [];
-        $m["to"] = $u["mailing_email"];
+        $m["to"] = $recipient->getEmail();
         $m["subject"] = $subject;
         $m["unsubscribeLink"] = $protocol.'://'.$site->get("domain").'/mailing/unsubscribe?email='.$m["to"];
         $m["footer"] = '
@@ -191,54 +167,66 @@ if (!empty($_POST)) {
 }
 
 $content .= '
+    <h1><span class="fa fa-send"></span> Envoyer la newsletter</h1>
+    
+    <p class="alert alert-warning">
+        L\'outil intégré à Biblys ne permet 
+        pas de prouver le consentement des utilisateurs inscrits à la
+        newsletter. Pour être en confirmité avec le Règlement Général sur la
+        Protection des Données, vous devriez un outil spécialisé 
+        (<a href="https://fr.mailjet.com/blog/news/rgpd-comment-requalifier-vos-listes-et-prouver-le-consentement-de-vos-contacts/">en
+        savoir plus</a>).
+    </p>
 
-<form method="post" action="/pages/adm_newsletter_send" id="newsletter" class="fieldset">
-    <fieldset>
-
-        <legend>En-tête</legend>
-        <input type="hidden" name="offset" value="'.$offset.'" />
-        <input type="hidden" name="errors_count" value="'.$errorsCount.'" />
-        <input type="hidden" name="sent_success" value="'.$sentSuccess.'" />
-
-        <label for="from">De :</label>
-        <input type="text" id="from" name="from" value="'.$site->get("title").' &lt;'.$site->get("contact").'&gt;" class="long" readonly />
-        <br />
-
-        <label for="to">&Agrave; :</label>
-        <input type="text" id="to" name="to" value="'.$emailsCount.' abonn&eacute;s" readonly />
-        <br />
-
-        <label for="objet">Objet :</label>
-        <input type="text" id="objet" name="objet" value="'.(isset($_POST["objet"]) ? stripslashes($_POST["objet"]) : null).'" class="long" required />
-        <br />
-
-        <label for="campaignName">Nom de campagne :</label>
-        <input type="text" id="campaignName" name="campaignName" value="'.$campaignName.'" class="long" required />
-        <br />
-    </fieldset>
-    <fieldset>
-        <legend>Contenu</legend>
-        <textarea name="message" class="wysiwyg">'.(isset($_POST["message"]) ? stripslashes($_POST["message"]) : null).'</textarea>
-    </fieldset>
-    <fieldset>
-        <legend>CSS personnalisé</legend>
-        <textarea name="css">'.(isset($_POST["css"]) ? stripslashes($_POST["css"]) : null).'</textarea>
-    </fieldset>
-    <fieldset>
-        <legend>Envoi</legend>
-
-        <input type="radio" id="sendAll-0" name="sendAll" value="0" '.($sendAll ? '' : ' checked').'>
-        <label for="sendAll-0" class="after">Envoyer un e-mail de test à '.$this->user->get('email').'</label>
-        <br/>
-
-        <input type="radio" id="sendAll-1" name="sendAll" value="1" '.($sendAll ? ' checked' : '').'>
-        <label for="sendAll-1" class="after">Envoyer pour de bon à '.$emailsCount.' abonnés</label>
-        <br/>
-
-        <p class="center"><button type="submit" class="btn btn-primary">Envoyer</button></p>
-    </fieldset>
-</form>
-
+    <form method="post" action="/pages/adm_newsletter_send" id="newsletter" class="fieldset">
+        <fieldset>
+    
+            <legend>En-tête</legend>
+            <input type="hidden" name="errors_count" value="'.$errorsCount.'" />
+            <input type="hidden" name="sent_success" value="'.$sentSuccess.'" />
+    
+            <label class="floating" for="from">De :</label>
+            <input type="text" id="from" name="from" value="'.$site->get("title").' &lt;'.$site->get("contact").'&gt;" class="long" readonly />
+            <br />
+    
+            <label class="floating" for="to">&Agrave; :</label>
+            <input type="text" id="to" name="to" value="'.$emailsCount.' abonn&eacute;s" readonly />
+            <br />
+    
+            <label class="floating" for="objet">Objet :</label>
+            <input type="text" id="objet" name="objet" value="'.(isset($_POST["objet"]) ? stripslashes($_POST["objet"]) : null).'" class="long" required />
+            <br />
+    
+            <label class="floating" for="campaignName">Campagne :</label>
+            <input type="text" id="campaignName" name="campaignName" value="'.$campaignName.'" class="long" required />
+            <br />
+        </fieldset>
+        <fieldset>
+            <legend>Contenu</legend>
+            <textarea name="message" class="wysiwyg">'.(isset($_POST["message"]) ? stripslashes($_POST["message"]) : null).'</textarea>
+        </fieldset>
+        <fieldset>
+            <legend>CSS personnalisé</legend>
+            <textarea name="css">'.(isset($_POST["css"]) ? stripslashes($_POST["css"]) : null).'</textarea>
+        </fieldset>
+        <fieldset>
+            <legend>Envoi</legend>
+    
+            <input type="radio" id="sendAll-0" name="sendAll" value="0" '.($sendAll ? '' : ' checked').'>
+            <label for="sendAll-0" class="after">Envoyer un e-mail de test à '.$currentUser->getEmail().'</label>
+            <br/>
+    
+            <input type="radio" id="sendAll-1" name="sendAll" value="1" '.($sendAll ? ' checked' : '').'>
+            <label for="sendAll-1" class="after">Envoyer pour de bon à '.$emailsCount.' abonnés</label>
+            <br/>
+            
+            <label for="offset">Commencer à :</label>
+            <input type="number" id="offset" name="offset" value="'.$offset.'" />
+            <br />
+    
+            <p class="center"><button type="submit" class="btn btn-primary">Envoyer</button></p>
+        </fieldset>
+    </form>
 ';
 
 return new Response($content);
