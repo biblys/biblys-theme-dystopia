@@ -185,7 +185,7 @@
     {% if app.user.isAdmin() %}
       <div class="admin">
         <p>Article n° {{ article.id }}</p>
-        <p><a href="/pages/adm_article?id={{ article.id }}">modifier</a></p>
+        <p><a href="/pages/article_edit?id={{ article.id }}">modifier</a></p>
       </div>
     {% endif %}
     {% endblock %}
