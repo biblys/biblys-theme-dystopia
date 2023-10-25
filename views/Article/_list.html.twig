@@ -39,7 +39,7 @@
         {% if article.isSoldOut() %}
       <p class="alert alert-warning text-center">Épuisé</p>
     {% elseif not article.has('price') and article.get('type_id') == 2 %}
-      <a href="/pages/log_myebooks?add={{ article.id }}" class="btn btn-primary btn-block" title="Télécharger gratuitement"><i class="fa fa-download"></i> Télécharger</a>
+      <a href="{{ path("article_free_download", { id: article.id }) }}" class="btn btn-primary" title="Télécharger gratuitement"><i class="fa fa-download"></i> Télécharger</a>
     {% elseif article.isPublished() %}
       <a href="/pages/cart?add=article&amp;id={{ article.id }}" class="btn btn-primary add_to_cart event" data-type="article" data-id="{{ article.id }}"><i class="fa fa-shopping-cart"></i> Ajouter au panier</a>
     {% elseif article.isPreorderable() %}
