@@ -36,6 +36,10 @@ i.fa {
     margin-bottom: 0;
 }
 
+#menu .navbar-header {
+    color: black;
+}
+
 @media(min-width: 768px) {
   #menu .navbar-nav {
     display: flex;
@@ -324,11 +328,12 @@ i.fa {
 @media (max-width: 767px) {
 
     body {
-        background-image: url('/dystopia/images/background-mobile.jpg');
+        background-image: url('/theme/background-mobile.jpg');
         background-repeat: repeat;
     }
 
     #wrapper {
+        margin-top: 0;
         padding: 0;
     }
 
@@ -338,12 +343,11 @@ i.fa {
 
     #header-mobile {
         display: block;
-        margin-top: 25px;
         width: 100%;
     }
 
     #header-mobile img {
-        max-width: 100%;
+        width: 100%;
     }
 
     #menu {
