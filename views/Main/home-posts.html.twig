@@ -1,0 +1,10 @@
+{% extends "layout:base.html.twig" %}
+
+{% block main %}
+  {% include 'AppBundle:Post:_postList.html.twig' %}
+  {% include 'AppBundle:Post:_pagination.html.twig' %}
+
+  <p class="text-center">
+    <a href="/blog/?p=1">Billets plus anciens</a>
+  </p>
+{% endblock %}
