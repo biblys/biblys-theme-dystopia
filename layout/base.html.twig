@@ -100,14 +100,29 @@
 
     </div>
 
-    <footer class="hidden-print">
-        <p class="text-center">
-          <a href="/pages/mentions-legales">Mentions légales</a> —
-          <a href="/pages/conditions-generales-de-ventes">Conditions Générales de Vente</a>
-        </p>
-        <a href="http://www.biblys.fr/" target="_blank">
-            <img src="/assets/images/propulse-par-biblys.png" class="biblys" alt="Propulsé par Biblys">
+    <footer class="site-footer">
+      <div class="footer-block footer-links">
+        <ul>
+          <li><a href="/pages/mentions-legales">Mentions légales</a></li>
+          <li><a href="/pages/conditions-generales-de-vente">Conditions générales de vente</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-block footer-biblys-logo">
+        <a href="https://www.biblys.fr/" target="_blank" rel="noreferrer noopener">
+          <img src="/assets/images/propulse-par-biblys.png" alt="Propulsé par Biblys" class="biblys-logo">
         </a>
+      </div>
+
+      <div class="footer-block footer-newsletter">
+        <p>Recevoir notre newsletter :</p>
+        <form class="center" method="post" action="/mailing/subscribe">
+          <fieldset>
+            <input type="email" name="email" placeholder="Votre adresse e-mail" class="form-control">
+            <input class="btn btn-info btn-sm btn-block" type="submit" value="S'abonner">
+          </fieldset>
+        </form>
+      </div>
     </footer>
 
     {% include "layout:_assets_js.html.twig" %}

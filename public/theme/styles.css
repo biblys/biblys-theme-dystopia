@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 
+html {
+  font-size: 16px;
+}
+
 body {
     background-image: url('/theme/header.jpg'), url('/theme/background.jpg');
     background-position: top center, top left;
@@ -101,13 +105,30 @@ i.fa {
     max-width: 100%;
 }
 
-body > footer {
-  font-size: 10px;
-  margin-top: 15px;
+/* Footer */
+
+.site-footer {
+  background: white;
+  font-size: 1rem;
+  padding: 16px;
+  margin: 16px auto 0;
+  max-width: 738px;
 }
 
-body > footer a {
-  color: #fff;
+@media(min-width: 768px) {
+  .site-footer {
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .site-footer .footer-block {
+    width: 235px;
+  }
+
+  .site-footer .footer-biblys-logo {
+    text-align: center;
+  }
 }
 
 /* Posts */
