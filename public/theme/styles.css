@@ -9,6 +9,8 @@ body {
     background-position: top 38px center, top left;
     background-repeat: no-repeat, repeat;
     font-family: 'Roboto Slab', Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 i.fa {
@@ -170,18 +172,22 @@ i.fa {
     padding: 0 10px;
 }
 
-.post .header .title,
-.post .post-header h1,
-.post .header p,
-.post .post-header p {
-    margin: 0;
+.post .post-title,
+.post .post-infos {
+  margin: 0;
+}
+
+.post .post-title {
+  margin-bottom: 8px;
 }
 
 
 .post img:first-child,
-.post .illustration {
+.post .illustration,
+.post .linked-article {
     display: block;
     margin: 10px auto;
+    max-height: 384px;
     max-width: 100%;
 }
 
