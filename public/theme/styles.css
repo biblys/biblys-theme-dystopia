@@ -181,7 +181,6 @@ i.fa {
   margin-bottom: 8px;
 }
 
-
 .post img:first-child,
 .post .illustration,
 .post .linked-article {
@@ -189,6 +188,38 @@ i.fa {
     margin: 10px auto;
     max-height: 384px;
     max-width: 100%;
+}
+
+.post .linked-articles {
+  text-align: center;
+}
+
+@media(min-width: 768px) {
+  .post .post-main {
+    display: flex;
+    gap: 24px;
+  }
+
+  .post .linked-articles {
+    flex-shrink: 0;
+    order: 3;
+    text-align: center;
+    width: 192px;
+  }
+
+  .post .linked-articles .btn {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .post .linked-article {
+    margin-top: 0;
+  }
+
+  .post .post-content {
+    order: 4;
+    padding: 0;
+  }
 }
 
 /* Page */

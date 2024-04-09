@@ -1,0 +1,34 @@
+{% if post.hasIllustration() %}
+  <div class="post-illustration">
+    <img src="{{ post.illustrationUrl }}" class="post-illustration-image" {% if post.has('illustration_legend') %} alt="{{ post.illustration_legend }}" {% endif %}>
+  </div>
+{% endif %}
+
+<section class="post-main">
+  {% if post.has('content') %}
+    <div class="post-content">
+      {{ post.content|raw }}
+    </div>
+  {% endif %}
+
+  {% if post.articles %}
+    <div class="linked-articles">
+      {% for article in post.articles %}
+        <a href="/{{ article.url }}">
+          <img src="{{ article.coverUrl }}" alt="{{ article.title }}" class="linked-article">
+        </a>
+
+        {{ article.getCartButton('Ajouter au panier')|raw }}
+
+        <a data-wish="{{ article.id }}" class="btn btn-default event">
+          {% if article.isInWishList() %}
+            <i class="fa fa-heart red"></i> Dans mes envies
+          {% else %}
+            <i class="fa fa-heart-o"></i> Ajouter à mes envies
+          {% endif %}
+        </a>
+
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
