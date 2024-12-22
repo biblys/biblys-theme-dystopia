@@ -4,8 +4,13 @@
 
     <article class="article">
 
-      {% if article.hasCover() %}
-        {{ article.getCoverTag({ size: 'h150', class: 'cover', link: path('article_show', { slug: article.url }) })|raw }}
+      {% if article.model|hasImage() %}
+        {% include "AppBundle:Article:_cover.html.twig" with {
+          article: article.model,
+          class: "cover",
+          height: 150,
+          link: path('article_show', { slug: article.url })
+        } %}
       {% endif %}
 
       <a href="{{ path('article_show', { slug: article.url }) }}">

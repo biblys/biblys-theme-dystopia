@@ -9,8 +9,15 @@
 
   <div class="row">
     <div class="col-sm-4">
-      {% if article.hasCover() %}
-        <p>{{ article.getCoverTag({ size: "w300", class: "cover", rel: "lightbox" })|raw }}</p>
+      {% if article.model|hasImage() %}
+        <p>
+          {% include "AppBundle:Article:_cover.html.twig" with {
+            article: article.model,
+            class: "cover",
+            rel: "lightbox",
+            width: 300
+          } %}
+        </p>
       {% endif %}
 
       <p class="text-center">

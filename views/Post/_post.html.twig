@@ -14,9 +14,14 @@
   {% if post.articles %}
     <div class="linked-articles">
       {% for article in post.articles %}
-        <a href="/{{ article.url }}">
-          <img src="{{ article.coverUrl }}" alt="{{ article.title }}" class="linked-article">
-        </a>
+        {% if article.model|hasImage() %}
+          {% include "AppBundle:Article:_cover.html.twig" with {
+            article: article.model,
+            class: "linked-article",
+            width: 300,
+            link: path('article_show', { slug: article.url })
+          } %}
+        {% endif %}
 
         {{ article.getCartButton('Ajouter au panier')|raw }}
 
