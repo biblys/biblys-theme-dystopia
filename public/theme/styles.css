@@ -36,6 +36,7 @@ i.fa {
 #menu {
     font-size: 1.2rem;
     margin-bottom: 0;
+  padding: 0 0 .5rem;
 }
 
 #menu .navbar-header {
@@ -434,6 +435,6 @@ i.fa {
   .search-box .search-field {
     display: inline-block;
     transform: translateY(3px);
-    width: calc(100% - 300px);
+    width: calc(100% - 250px);
   }
 }
