@@ -53,7 +53,7 @@
 
       <a href="{{ path('article_show', { slug: article.url }) }}" class="btn btn-info" title="En savoir plus"><i class="fa fa-info-circle"></i></a>
 
-      <a data-wish="{{ article.id }}" class="btn btn-default event" title="Ajouter à mes envies">
+      <a data-wish="{{ article.id }}" class="btn btn-light event" title="Ajouter à mes envies">
         {% if article.isInWishList() %}
           <i class="fa fa-heart red"></i>
         {% else %}

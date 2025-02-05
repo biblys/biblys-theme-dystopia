@@ -25,7 +25,7 @@
 
         {{ article.getCartButton('Ajouter au panier')|raw }}
 
-        <a data-wish="{{ article.id }}" class="btn btn-default event">
+        <a data-wish="{{ article.id }}" class="btn btn-light event">
           {% if article.isInWishList() %}
             <i class="fa fa-heart red"></i> Dans mes envies
           {% else %}

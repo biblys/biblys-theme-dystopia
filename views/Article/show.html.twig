@@ -52,7 +52,7 @@
       <a href="/pages/cart?add=article&amp;id={{ article.id }}" class="btn btn-primary btn-block add_to_cart event" data-type="article" data-id="{{ article.id }}"><i class="fa fa-shopping-cart"></i> Précommander</a>
       {% endif %}
 
-      <a data-wish="{{ article.id }}" class="btn btn-default btn-block event">
+      <a data-wish="{{ article.id }}" class="btn btn-light btn-block event">
         {% if article.isInWishList() %}
           <i class="fa fa-heart red"></i> Dans mes envies
         {% else %}
@@ -67,7 +67,7 @@
         <p>
         <p id="files" class="text-center collapse">
           {% for file in article.getDownloadableFiles('free') %}
-            <a href="{{ file.getUrl() }}" class="btn btn-default btn-sm"><i class="fa fa-file"></i> {{ file.getType('name') }}</a>
+            <a href="{{ file.getUrl() }}" class="btn btn-light btn-sm"><i class="fa fa-file"></i> {{ file.getType('name') }}</a>
 
             {% if file.type == "audio/mpeg" %}
             <script>
@@ -86,7 +86,7 @@
                 }
               }
             </script>
-            <button class="btn btn-default btn-sm" onclick="audioClick(this)"><i class="fa fa-play"></i> Écouter</button>
+            <button class="btn btn-light btn-sm" onclick="audioClick(this)"><i class="fa fa-play"></i> Écouter</button>
             <audio id="excerpt_{{ file.id }}">
               <source src="{{ file.getUrl() }}" type="audio/mpeg">
             </audio>
