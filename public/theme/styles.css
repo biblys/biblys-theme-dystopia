@@ -5,45 +5,45 @@ html {
 }
 
 body {
-    background-image: url('/theme/header.jpg'), url('/theme/background.jpg');
-    background-position: top 38px center, top left;
-    background-repeat: no-repeat, repeat;
-    font-family: 'Roboto Slab', Georgia, serif;
-    font-size: 1rem;
-    line-height: 1.5;
+  background-image: url('/theme/header.jpg'), url('/theme/background.jpg');
+  background-position: top 38px center, top left;
+  background-repeat: no-repeat, repeat;
+  font-family: 'Roboto Slab', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 i.fa {
-    margin-right: 3px;
+  margin-right: 3px;
 }
 
 /* LAYOUT */
 
 #wrapper {
-    margin-top: 38px;
-    max-width: 768px;
-    width: 100%;
+  margin-top: 38px;
+  max-width: 768px;
+  width: 100%;
 }
 
 #header {
-    height: 265px;
+  height: 265px;
 }
 
 #header-mobile {
-    display: none;
+  display: none;
 }
 
 #menu {
-    font-size: 1.2rem;
-    margin-bottom: 0;
+  font-size: 1.2rem;
+  margin-bottom: 0;
   padding: 0 0 .5rem;
 }
 
 #menu .navbar-header {
-    color: black;
+  color: black;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   #menu .navbar-nav {
     display: flex;
     justify-content: space-between;
@@ -52,20 +52,20 @@ i.fa {
 }
 
 #menu .navbar-collapse {
-    box-shadow: none;
-    border: none;
-    padding-left: 0;
-    padding-right: 0;
+  box-shadow: none;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 #menu a {
-    color: #e2c888;
-    opacity: 0.9;
+  color: #e2c888;
+  opacity: 0.9;
 }
 
 #menu a:hover {
-    color: #428bca;
-    opacity: 1;
+  color: #428bca;
+  opacity: 1;
 }
 
 #menu .dropdown-menu a {
@@ -73,28 +73,28 @@ i.fa {
 }
 
 #menu a.btn {
-    color: white;
+  color: white;
 }
 
 #menu a.btn.btn-default {
-    color: black;
+  color: black;
 }
 
 #menu .cart {
-    float: right;
-    padding-right: 10px;
+  float: right;
+  padding-right: 10px;
 }
 
 .nav > li > a {
-    padding: 5px 6px;
+  padding: 5px 6px;
 }
 
 #menu .navbar-toggle {
-    color: white;
-    float: none;
-    font-size: 25px;
-    margin: 0;
-    padding: 0;
+  color: white;
+  float: none;
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
 }
 
 #menu.navbar-fixed-top {
@@ -118,9 +118,9 @@ i.fa {
 }
 
 #content {
-    background-color: white;
-    padding-bottom: 15px;
-    max-width: 100%;
+  background-color: white;
+  padding-bottom: 15px;
+  max-width: 100%;
 }
 
 /* Footer */
@@ -133,7 +133,7 @@ i.fa {
   max-width: 738px;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .site-footer {
     align-items: end;
     display: flex;
@@ -152,25 +152,25 @@ i.fa {
 /* Posts */
 
 .post {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .post .header,
 .post .post-header {
-    padding: 10px 20px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #069;
-    background-color: #09c;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #069;
+  background-color: #09c;
 }
 
 .post .header a,
 .post .post-header a {
-    color: black;
+  color: black;
 }
 
 .post .content,
 .post .post-content {
-    padding: 0 10px;
+  padding: 0 10px;
 }
 
 .post .post-title,
@@ -185,17 +185,17 @@ i.fa {
 .post img:first-child,
 .post .illustration,
 .post .linked-article {
-    display: block;
-    margin: 10px auto;
-    max-height: 384px;
-    max-width: 100%;
+  display: block;
+  margin: 10px auto;
+  max-height: 384px;
+  max-width: 100%;
 }
 
 .post .linked-articles {
   text-align: center;
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .post .post-main {
     display: flex;
     gap: 24px;
@@ -234,59 +234,59 @@ i.fa {
 /* Article list */
 
 .article-list article {
-    min-height: 250px;
-    margin: 25px 0;
-    overflow: auto;
+  min-height: 250px;
+  margin: 25px 0;
+  overflow: auto;
 }
 
 .article-list h2 {
-    background-color: #09C;
-    border-bottom: 2px solid #069;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
+  background-color: #09C;
+  border-bottom: 2px solid #069;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
 }
 
 .article-list a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .article-list .cover {
-    border: 5px solid #AAA;
-    float: right;
-    position: relative;
-    right: 10px;
-    top: 10px;
-    max-height: 200px;
+  border: 5px solid #AAA;
+  float: right;
+  position: relative;
+  right: 10px;
+  top: 10px;
+  max-height: 200px;
 }
 
 /* Article page */
 
 .article .cover {
-    border: 5px solid #AAA;
-    margin-top: 15px;
+  border: 5px solid #AAA;
+  margin-top: 15px;
 }
 
 .article .subtitle {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .article .cycle {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 .article .authors {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 .article h2 {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .article ul {
-    font-size: 0.95em;
-    list-style-type: disc;
-    padding-left: 25px;
+  font-size: 0.95em;
+  list-style-type: disc;
+  padding-left: 25px;
 }
 
 .article .share-buttons {
@@ -325,39 +325,39 @@ i.fa {
 /* Biblys */
 
 .biblys {
-    background-color: white;
-    display: block;
-    margin: 15px auto;
-    padding: 5px;
+  background-color: white;
+  display: block;
+  margin: 15px auto;
+  padding: 5px;
 }
 
 .big {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 .crowdfunding-aside > div {
-    padding: 10px;
-    background: whiteSmoke;
-    border-radius: 10px;
-    margin-bottom: 10px;
+  padding: 10px;
+  background: whiteSmoke;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .crowdfunding-aside .progress {
-    background: lightgray;
+  background: lightgray;
 }
 
 .crowdfunding-aside article {
-    padding: 10px;
-    text-align: left;
-    border-top: 1px solid lightgray;
-    font-size: 0.9em;
+  padding: 10px;
+  text-align: left;
+  border-top: 1px solid lightgray;
+  font-size: 0.9em;
 }
 
 .crowdfunding-aside .price {
-    font-size: 18px;
-    font-weight: bold;
-    color: green;
-    margin: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+  margin: 15px 0;
 }
 
 
@@ -365,73 +365,73 @@ i.fa {
 
 @media (max-width: 767px) {
 
-    body {
-        background-image: url('/theme/background-mobile.jpg');
-        background-repeat: repeat;
-    }
+  body {
+    background-image: url('/theme/background-mobile.jpg');
+    background-repeat: repeat;
+  }
 
-    #wrapper {
-        margin-top: 0;
-        padding: 0;
-    }
+  #wrapper {
+    margin-top: 0;
+    padding: 0;
+  }
 
-    #header {
-        display: none;
-    }
+  #header {
+    display: none;
+  }
 
-    #header-mobile {
-        display: block;
-        width: 100%;
-    }
+  #header-mobile {
+    display: block;
+    width: 100%;
+  }
 
-    #header-mobile img {
-        width: 100%;
-    }
+  #header-mobile img {
+    width: 100%;
+  }
 
-    #menu {
-        border: none;
-        margin-bottom: 0;
-    }
+  #menu {
+    border: none;
+    margin-bottom: 0;
+  }
 
-    #menu .navbar-nav {
-        padding-bottom: 15px;
-        margin: 0;
-    }
+  #menu .navbar-nav {
+    padding-bottom: 15px;
+    margin: 0;
+  }
 
-    #menu .cart {
-        margin-right: 10px;
-    }
+  #menu .cart {
+    margin-right: 10px;
+  }
 
-    #menu .navbar-header {
-        margin-left: 10px;
-    }
+  #menu .navbar-header {
+    margin-left: 10px;
+  }
 
-    .article-list .article {
-        border-bottom: 1px solid rgba(0, 0, 0, .25);
-    }
+  .article-list .article {
+    border-bottom: 1px solid rgba(0, 0, 0, .25);
+  }
 
-    .article-list .cover {
-        float: none;
-        display: block;
-        margin: auto;
-    }
+  .article-list .cover {
+    float: none;
+    display: block;
+    margin: auto;
+  }
 
-    .article-list .btn {
-        display: block;
-        margin-bottom: 5px;
-    }
+  .article-list .btn {
+    display: block;
+    margin-bottom: 5px;
+  }
 
-    .article .cover {
-        max-height: 250px;
-        display: block;
-        margin: 10px auto;
-    }
+  .article .cover {
+    max-height: 250px;
+    display: block;
+    margin: 10px auto;
+  }
 }
 
 
 /* Portrait tablet and bigger */
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .search-box .search-field {
     display: inline-block;
     transform: translateY(3px);
