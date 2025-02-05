@@ -438,3 +438,19 @@ i.fa {
     width: calc(100% - 250px);
   }
 }
+
+.powered-by {
+  color: white;
+  font-size: 0.8em;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.powered-by a {
+  background: #ff6600;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  padding: 2px 4px;
+  text-decoration: none;
+}
