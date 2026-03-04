@@ -264,7 +264,9 @@ i.fa {
 
 .article .cover {
   border: 5px solid #AAA;
-  margin-top: 15px;
+  display: block;
+  margin: 15px auto auto;
+  max-width: 100%;
 }
 
 .article .subtitle {
@@ -419,12 +421,6 @@ i.fa {
   .article-list .btn {
     display: block;
     margin-bottom: 5px;
-  }
-
-  .article .cover {
-    max-height: 250px;
-    display: block;
-    margin: 10px auto;
   }
 }
 
